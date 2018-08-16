@@ -1,0 +1,21 @@
+{
+  "name": "foodmap",
+  "version": "1.0.2",
+  "description": "version mejorada del foodmap",
+  "main": "main.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u0016Foodmap-2.0"
+  },
+  "keywords": [
+    "development",
+    "foodmap",
+    "google",
+    "api"
+  ],
+  "author": "karyn herrera",
+  "license": "ISC"
+}
