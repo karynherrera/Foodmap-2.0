@@ -19,4 +19,13 @@ const ordenarRest = ((restaurants)=>{
 });
 
 
+const crearMarcador = ((place) => {
+  // Creamos marcadores para mostrar en el mapa
+  let marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location,
+    lugar: place.name
+  });
+}); 
+
   

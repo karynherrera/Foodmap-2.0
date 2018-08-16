@@ -5,7 +5,7 @@ window.onload = (() => {
     $('#splash').hide('fast');
     document.getElementById('principal').style.display = 'block'; 
   }, 3000);
-
+  
   initMap();
 });
 
@@ -36,7 +36,7 @@ function openMenu() {
     nombreRest = nombreRestSplit[0];
   }
  
-  console.log(nombreRest);
+ //  console.log(nombreRest);
   let results = window.restaurants;
   console.log(results);
   let resultRest, nameRest, adress;
