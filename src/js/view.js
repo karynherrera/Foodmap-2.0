@@ -62,3 +62,5 @@ function closeMenu() {
   modal.innerHTML = '<div></div>';
   sideMenu.classList.add('d-none'); // añadimos la clase display-none
 }
+
+
