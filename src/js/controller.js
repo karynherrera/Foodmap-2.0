@@ -1,4 +1,5 @@
 const ordenarRest = ((restaurants)=>{
+  let newRest=[];
   restaurants = restaurants.sort(function(localA, localB) {
     if (localA.rating !== undefined) {
       if (localB.rating !== undefined) {

@@ -54,12 +54,13 @@ const initMap = (() => {
             placeId: results[i].place_id
           }, function (place, status) {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
+              if(place!==undefined){
               crearMarcador(results[i]);
               let marker = new google.maps.Marker({
                 map: map,
                 position: place.geometry.location
               });
-
+            
               google.maps.event.addListener(marker, 'mouseover', function () {
                 //
 
@@ -72,7 +73,6 @@ const initMap = (() => {
               google.maps.event.addListener(marker, 'click', function () {
                 console.log(place);
                 let other = place.opening_hours ||place.website || place.rating;
-                
                 let res;
                 if(place.photos!== undefined){
                   
@@ -85,7 +85,7 @@ const initMap = (() => {
                 }
                 openModalclick(place.name, place.formatted_address, res);
               });
-
+            }
 
               // primero ordenamos los locales cercanos segun mayor a menor rating
               ordenarRest(restaurants);
