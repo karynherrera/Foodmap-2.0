@@ -5,7 +5,7 @@ window.onload = (() => {
     $('#splash').hide('fast');
     document.getElementById('principal').style.display = 'block'; 
   }, 3000);
-  
+
   initMap();
 });
 
@@ -52,7 +52,10 @@ function openMenu() {
   if (resultRest) {
     results.forEach(element => {
       const modal = document.getElementById('infoRestaurant');
-      modal.innerHTML = `<div id="textModal"><h2>Restaurante:<br>${nameRest}</div>`;
+      modal.style.display = 'block';
+      modal.innerHTML = `
+      <h2 id="textModal">Restaurante:<br>${nameRest}</h2>
+      `;
     });
   }
 }
@@ -64,3 +67,16 @@ function closeMenu() {
 }
 
 
+/*
+  const modal = document.getElementById('modalTerms');
+  modal.style.display = 'block';
+
+  modal.innerHTML = `
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+  aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+  <h2 id="textModal">Restaurante:<br>${nameRest}</h2>
+  </div>
+  </div>
+  </div>`;*/

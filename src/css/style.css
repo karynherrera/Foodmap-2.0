@@ -74,14 +74,20 @@
   position: relative;
   top:0;
   transition: 0.5s ease-out;
-  padding: 50%;
+  padding: 1%;
   text-align: center;
   z-index: 20;
+  background-color: blue;
+}
+
+h2{
+  
 }
 
 #textModal{
+  position: relative;
   text-align: center;
-  position: absolute;
+  z-index: 20;
   
 }
 
@@ -100,21 +106,17 @@
 }
 
 .menu_content{
-  padding: 50%;
+  z-index: 20;
+
   margin-top: 20px;
   text-align: center;
   color: #ffffff;
   font-size: 200%;
   position: relative;
-  right: -150%;
+ 
 }
 
 #filtrarRestaurantes{
   color: blue;
 }
 
-@media(min-width: 768px){ /* esta medida se encuentra en bootstrap-> overview-> responsive breakpoints */
-  .menu{
-      width: 20vw; /*El menú va a tomar este ancho con pantallas de 768px hacia arriba*/
-  }
-}
