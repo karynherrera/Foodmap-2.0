@@ -7,7 +7,37 @@ window.onload = (() => {
   }, 3000);
 
   initMap();
+
+ 
+    // Fetch retorna una promesa
+    fetch(`https://source.unsplash.com/random`) //Recibe la URL donde se va a hacer la consulta
+    .then((response) => { //Este then es de la promesa del fetch
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Error de Img");
+      }
+    }).then((gifJson) => { //recibimos el JSON en este punto
+      //Este then es de la promesa de response.json()
+      const gifReceptorDiv = document.getElementById("gifReceptor");
+      for (let i = 0; i < gifJson.data.length; i++) {
+        //gifJson.data.images.fixed_width[i];  //"https://i.giphy.com/media/qrwthQPPQrtEk/200w.gif"
+        const createGif = document.createElement('img'); //Aquí "almaceno" las imágenes
+        const giphy = gifJson.data[i].images.fixed_width.url;
+        let res = giphy;
+        console.log(res);
+        createGif.src = res;
+        gifReceptorDiv.appendChild(createGif);
+      }
+    })
+    .catch((error) => {
+      alert("Error de Img "+error);
+    });
+  
 });
+
+
+
 
 const selectRest = document.getElementById('filtrarRestaurantes');
 selectRest.addEventListener('change', ()=> {
@@ -23,6 +53,19 @@ const openModal = (()=> {
     closeMenu(); 
   }
 });
+
+const openModalclick = ((name,adress)=> { 
+  //console.log(name);
+  //console.log(adress);
+  if (sideMenu.className.indexOf('d-none') >= 0) { 
+    openMenuOther(name,adress); 
+  } else {
+    closeMenu(); 
+  }
+});
+
+
+
 
 function openMenu() {
   sideMenu.classList.remove('d-none'); // quitando clase display-none 
@@ -42,8 +85,9 @@ function openMenu() {
   let resultRest, nameRest, adress;
   let foundRest = results.find(item => {
     if (nombreRest === item.name) {
+      //console.log(item);
       nameRest = item.name;
-      adress = item.formatted_address;
+      adress = item.vicinity;
       return resultRest = true;
     } else {
       return resultRest = false;
@@ -53,8 +97,9 @@ function openMenu() {
     results.forEach(element => {
       const modal = document.getElementById('infoRestaurant');
       modal.style.display = 'block';
-      modal.innerHTML = `
-      <h2 id="textModal">Restaurante:<br>${nameRest}</h2>
+     modal.innerHTML = `
+      <h4 id="textModal">Restaurante:<br>${nameRest}</h4>
+      <h6>${adress}</h6>
       `;
     });
   }
@@ -64,6 +109,12 @@ function closeMenu() {
   const modal = document.getElementById('infoRestaurant');
   modal.innerHTML = '<div></div>';
   sideMenu.classList.add('d-none'); // añadimos la clase display-none
+  const mapa = document.getElementById("map");
+    mapa.style.display="block";
+    const near = document.getElementById("cerca");
+    near.style.display="block";
+    const select = document.getElementById("filtrarRestaurantes");
+    select.style.display="block";
 }
 
 
@@ -80,3 +131,21 @@ function closeMenu() {
   </div>
   </div>
   </div>`;*/
+
+  function openMenuOther(name,adress) {
+    const mapa = document.getElementById("map");
+    mapa.style.display="none";
+    const near = document.getElementById("cerca");
+    near.style.display="none";
+    const select = document.getElementById("filtrarRestaurantes");
+    select.style.display="none";
+    sideMenu.classList.remove('d-none'); // quitando clase display-none 
+        const modal = document.getElementById('infoRestaurant');
+        modal.style.display = 'block';
+       modal.innerHTML = `
+        <h4 id="textModal">Restaurante:<br>${name}</h4>
+        <h6>${adress}</h6>
+        `;
+      
+    
+  }

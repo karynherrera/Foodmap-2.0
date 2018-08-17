@@ -47,14 +47,35 @@
                         <span aria-hidden="true">&times;</span>
                       </div>
                     </div>
-                <h2 class="text">Restaurantes Cerca de tí!</h2>
+                <h2 class="text" id="cerca">Restaurantes Cerca de tí!</h2>
                 <div id="map"> </div>
                 <br>
                 <!--
                   <input type="text" placeholder="busca tu Restaurante!" id="" name="user">
                   <input type="button" value="find" id="find">
                   <br> -->
-                <select class="form-control" id="filtrarRestaurantes">
+                  <select class="d-none form-control select" id="filtrarStars" placeholder="Filtrar Restaurantes por numero de Estrellas">
+                    
+                    <option value="5" class="select">
+                      Restaurantes 5 Estrellas ★★★★★
+                    </option>
+                    <option value="4" class="select">
+                      Restaurantes 4 Estrellas ★★★★
+                    </option>
+                    <option value="3" class="select">
+                      Restaurantes 3 Estrellas ★★★
+                    </option>
+                    <option value="2" class="select">
+                      Restaurante 2 Estrellas ★★
+                    </option>
+                    <option value="1" class="select">
+                        Restaurante 1 Estrella ★
+                      </option>
+                      <option value="0" class="select">
+                          Restaurantes Sin Calificación de Estrellas
+                        </option>
+                  </select>
+                <select class="form-control select " id="filtrarRestaurantes">
                   <option id="optionAlumna">
                     Elige un Restaurante por su Rating!
                     <div id="stars"></div>
