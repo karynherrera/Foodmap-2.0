@@ -7,32 +7,6 @@ window.onload = (() => {
   }, 3000);
 
   initMap();
-
- 
-    // Fetch retorna una promesa
-    fetch(`https://source.unsplash.com/random`) //Recibe la URL donde se va a hacer la consulta
-    .then((response) => { //Este then es de la promesa del fetch
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Error de Img");
-      }
-    }).then((gifJson) => { //recibimos el JSON en este punto
-      //Este then es de la promesa de response.json()
-      const gifReceptorDiv = document.getElementById("gifReceptor");
-      for (let i = 0; i < gifJson.data.length; i++) {
-        //gifJson.data.images.fixed_width[i];  //"https://i.giphy.com/media/qrwthQPPQrtEk/200w.gif"
-        const createGif = document.createElement('img'); //Aquí "almaceno" las imágenes
-        const giphy = gifJson.data[i].images.fixed_width.url;
-        let res = giphy;
-        console.log(res);
-        createGif.src = res;
-        gifReceptorDiv.appendChild(createGif);
-      }
-    })
-    .catch((error) => {
-      alert("Error de Img "+error);
-    });
   
 });
 
@@ -54,11 +28,11 @@ const openModal = (()=> {
   }
 });
 
-const openModalclick = ((name,adress)=> { 
+const openModalclick = ((name,adress,src)=> { 
   //console.log(name);
   //console.log(adress);
   if (sideMenu.className.indexOf('d-none') >= 0) { 
-    openMenuOther(name,adress); 
+    openMenuOther(name,adress,src); 
   } else {
     closeMenu(); 
   }
@@ -82,12 +56,18 @@ function openMenu() {
  //  console.log(nombreRest);
   let results = window.restaurants;
   console.log(results);
-  let resultRest, nameRest, adress;
+  let resultRest, nameRest, adress,img;
   let foundRest = results.find(item => {
     if (nombreRest === item.name) {
-      //console.log(item);
+      console.log(item);
       nameRest = item.name;
       adress = item.vicinity;
+      if(item.photos!==undefined){
+        img = item.photos[0].getUrl({ 'maxWidth': 300, 'maxHeight': 300 });
+      }else{
+        img=undefined;
+      }
+      
       return resultRest = true;
     } else {
       return resultRest = false;
@@ -95,12 +75,27 @@ function openMenu() {
   });
   if (resultRest) {
     results.forEach(element => {
-      const modal = document.getElementById('infoRestaurant');
+      const mapa = document.getElementById("map");
+    mapa.style.display="none";
+    const near = document.getElementById("cerca");
+    near.style.display="none";
+    const select = document.getElementById("filtrarRestaurantes");
+      if(img !==undefined){
+        const modal = document.getElementById('infoRestaurant');
       modal.style.display = 'block';
-     modal.innerHTML = `
+     modal.innerHTML = ` <img src="${img} id="fotoRest"> 
       <h4 id="textModal">Restaurante:<br>${nameRest}</h4>
       <h6>${adress}</h6>
       `;
+      }else{
+        const modal = document.getElementById('infoRestaurant');
+        modal.style.display = 'block';
+       modal.innerHTML = ` <img src="src/img/icon.png" id="fotoRest"> 
+        <h4 id="textModal">Restaurante:<br>${name}</h4>
+        <h6>${adress}</h6>
+        `;
+      }
+      
     });
   }
 }
@@ -132,7 +127,7 @@ function closeMenu() {
   </div>
   </div>`;*/
 
-  function openMenuOther(name,adress) {
+  function openMenuOther(name,adress,src) {
     const mapa = document.getElementById("map");
     mapa.style.display="none";
     const near = document.getElementById("cerca");
@@ -140,12 +135,22 @@ function closeMenu() {
     const select = document.getElementById("filtrarRestaurantes");
     select.style.display="none";
     sideMenu.classList.remove('d-none'); // quitando clase display-none 
-        const modal = document.getElementById('infoRestaurant');
-        modal.style.display = 'block';
-       modal.innerHTML = `
-        <h4 id="textModal">Restaurante:<br>${name}</h4>
-        <h6>${adress}</h6>
-        `;
+    if(src!==undefined){
+      const modal = document.getElementById('infoRestaurant');
+      modal.style.display = 'block';
+     modal.innerHTML = ` <img src="${src} id="fotoRest"> 
+      <h4 id="textModal">Restaurante:<br>${name}</h4>
+      <h6>${adress}</h6>
+      `;
+    }else{
+      const modal = document.getElementById('infoRestaurant');
+      modal.style.display = 'block';
+     modal.innerHTML = ` <img src="src/img/icon.png" id="fotoRest"> 
+      <h4 id="textModal">Restaurante:<br>${name}</h4>
+      <h6>${adress}</h6>
+      `;
+    }
+       
       
     
   }

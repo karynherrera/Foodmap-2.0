@@ -62,17 +62,28 @@ const initMap = (() => {
 
               google.maps.event.addListener(marker, 'mouseover', function () {
                 //
-                
-                console.log(place);
+
+               // console.log(place);
                 infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
                   place.formatted_address + '</div>');
                 infowindow.open(map, this);
               });
 
               google.maps.event.addListener(marker, 'click', function () {
+                console.log(place);
+                let other = place.opening_hours ||place.website || place.rating;
                 
-                openModalclick(place.name,place.formatted_address);
-                
+                let res;
+                if(place.photos!== undefined){
+                  
+                    res = place.photos[0].getUrl({ 'maxWidth': 300, 'maxHeight': 300 });
+                    //console.log(res);
+                  
+                }else{
+                  res= undefined;
+                 // console.log(res);
+                }
+                openModalclick(place.name, place.formatted_address, res);
               });
 
 
@@ -122,30 +133,30 @@ const initMap = (() => {
     const selectRestByStars = document.getElementById('filtrarStars');
     let optionStars = document.getElementById('filtrarStars');
     selectRestByStars.addEventListener('change', () => {
-    
-    let arrayFilter=[];
-    if(optionStars.value==="5"){
-      console.log("5 estrellas");
-      arrayFilter=filterByStars(restaurants, 5);
-    }else if(optionStars.value==="4"){
-      arrayFilter=filterByStars(restaurants, 4);
-    }else if(optionStars.value==="3"){
-      arrayFilter=filterByStars(restaurants, 3);
-    }else if(optionStars.value==="2"){
-      arrayFilter=filterByStars(restaurants, 2);
-    }else if(optionStars.value==="1"){
-      arrayFilter=filterByStars(restaurants, 1);
-    }else{
-      arrayFilter=filterByStars(restaurants, 0);
-    }
 
-    for (let i = 0; i < arrayFilter.length; i++) {
-    crearMarcador(arrayFilter[i]);
-    let marker = new google.maps.Marker({
-      map: map,
-      
-    });
-  }
+      let arrayFilter = [];
+      if (optionStars.value === "5") {
+        console.log("5 estrellas");
+        arrayFilter = filterByStars(restaurants, 5);
+      } else if (optionStars.value === "4") {
+        arrayFilter = filterByStars(restaurants, 4);
+      } else if (optionStars.value === "3") {
+        arrayFilter = filterByStars(restaurants, 3);
+      } else if (optionStars.value === "2") {
+        arrayFilter = filterByStars(restaurants, 2);
+      } else if (optionStars.value === "1") {
+        arrayFilter = filterByStars(restaurants, 1);
+      } else {
+        arrayFilter = filterByStars(restaurants, 0);
+      }
+
+      for (let i = 0; i < arrayFilter.length; i++) {
+        crearMarcador(arrayFilter[i]);
+        let marker = new google.maps.Marker({
+          map: map,
+
+        });
+      }
     });
   });
 }); //fin de initMap
