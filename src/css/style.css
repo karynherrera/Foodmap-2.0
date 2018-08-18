@@ -27,10 +27,12 @@
   color:#033333;
   font-weight: bold;
   font-family: Helvetica; 
-  font-size: 250%;
+  
 }
 
-
+#logo{
+  width: 100%;
+}
 
 #headLogo{
   width: 30%;
@@ -42,7 +44,7 @@
   color:#033333;
   font-weight: bold;
   font-family: Helvetica; 
-  font-size: 350%;
+  
   margin-top: 30%;
   margin-bottom: 20%;
   display: inline;
@@ -66,7 +68,7 @@
   color:#033333;
   font-weight: bold;
   font-family: Helvetica; 
-  font-size: 650%;
+ 
   margin-top: 30%;
   margin-top: 20%;
 }
@@ -84,9 +86,6 @@
   background-color: black;
 }
 
-h2{
-  
-}
 
 #textModal{
   position: relative;
@@ -115,7 +114,7 @@ h2{
   margin-top: 20px;
   text-align: center;
   color: #ffffff;
-  font-size: 200%;
+  
   position: relative;
  
 }
@@ -126,4 +125,11 @@ h2{
 
 .select{
   color: blue;
+}
+
+@media (min-width: 300px){
+  .text{
+    font-size: 100% !important;
+  }
+
 }

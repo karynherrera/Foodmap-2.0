@@ -89,39 +89,43 @@ const initMap = (() => {
 
               // primero ordenamos los locales cercanos segun mayor a menor rating
               ordenarRest(restaurants);
+              
               const selectRestaurant = document.getElementById('filtrarRestaurantes');
               // indicamos la calificacion de cada lugar con estrellas
               restaurants.forEach(element => {
-
+                
                 let optionNode = document.createElement('option');
                 let star = document.getElementById('stars');
                 let stars = document.createElement('option');
                 // console.log(element.rating);
                 let num = element.rating;
                 let range = num;
+                if(element.rating!==undefined){
 
-                for (let i = 0; i < range; i++) {
-                  if (num === undefined) {
-                    stars.innerHTML += ' ';
-                  } else {
-                    if (num % 1 == 0) {
-                      stars.innerHTML += ' ★';
+                  for (let i = 0; i < range; i++) {
+                    if (num === undefined) {
+                      stars.innerHTML += ' ';
                     } else {
-                      stars.innerHTML += '★';
-                      range = Math.trunc(num);
+                      if (num % 1 == 0) {
+                        stars.innerHTML += ' ★';
+                      } else {
+                        stars.innerHTML += '★';
+                        range = Math.trunc(num);
+                      }
                     }
                   }
+  
+                  if (num === undefined) {
+                    stars.innerHTML += '/ Sin calificación';
+                  } else {
+                    stars.innerHTML += num + ' Estrellas';
+                  }
+  
+                  optionNode.text = element.name + ' ';
+                  optionNode.appendChild(stars);
+                  selectRestaurant.appendChild(optionNode);
                 }
-
-                if (num === undefined) {
-                  stars.innerHTML += '/ Sin calificación';
-                } else {
-                  stars.innerHTML += num + ' Estrellas';
-                }
-
-                optionNode.text = element.name + ' ';
-                optionNode.appendChild(stars);
-                selectRestaurant.appendChild(optionNode);
+                
               });
 
             }
@@ -133,7 +137,8 @@ const initMap = (() => {
     const selectRestByStars = document.getElementById('filtrarStars');
     let optionStars = document.getElementById('filtrarStars');
     selectRestByStars.addEventListener('change', () => {
-
+      const listStars = document.getElementById("img");
+      listStars.innerHTML=``;
       let arrayFilter = [];
       if (optionStars.value === "5") {
         console.log("5 estrellas");
@@ -150,13 +155,21 @@ const initMap = (() => {
         arrayFilter = filterByStars(restaurants, 0);
       }
 
+      arrayFilter.forEach((element)=>{
+        if(element.rating!==undefined){
+          listStars.innerHTML+=`<p>${element.name} ${element.rating} Estrellas</p>`;
+        } 
+      })
+      
       for (let i = 0; i < arrayFilter.length; i++) {
+        
         crearMarcador(arrayFilter[i]);
         let marker = new google.maps.Marker({
           map: map,
 
         });
       }
+      
     });
   });
 }); //fin de initMap

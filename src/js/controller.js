@@ -35,9 +35,9 @@ const deleteMarkers=()=> {
 }
 
 const filterByStars = ((arrayRestaurants,i)=>{
-  console.log(arrayRestaurants);
   let arrayRestFilter=[];
   arrayRestaurants.forEach(element => {
+    
     if(element.rating===i){
       arrayRestFilter.push(element);
     }else if(element.rating<i+1 && element.rating>i){
